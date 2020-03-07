@@ -1,0 +1,9 @@
+body {
+  background: darkgray;
+  color: gray;
+  font-size: 2em;
+}
+#myCanvas {
+  background: lightgray;
+  border: solid 1px gray;
+}
