@@ -6,15 +6,17 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <canvas id="myCanvas" width="800" height="800"></canvas>
-    <p>
-      <span id="myCaption"></span><br/>
-      Controls:<br/>
-      Press p for pause.<br/>
-      Press r to reset score.<br/>
-      Press 1 to toggle 2 player mode.<br/>
-      Press 2 to toggle 1 ball mode.<br/>
-    <p>
+    <div id="wrapper">
+      <canvas id="canvas" width="800" height="800"></canvas>
+      <p id="caption">
+        <span id="score"></span><br/>
+        Controls:<br/>
+        Press p to toggle pause.<br/>
+        Press r to reset score.<br/>
+        Press 1 to toggle 2 player mode.<br/>
+        Press 2 to toggle 1 ball mode.<br/>
+      <p>
+    </div>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
     <script src="script.js"></script>
   </body>

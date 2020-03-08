@@ -1,6 +1,6 @@
 // screen related variables
-var caption = document.getElementById("myCaption");
-var canvas = document.getElementById("myCanvas");
+var score = document.getElementById("score");
+var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var padding = 10;
 
@@ -388,7 +388,7 @@ function draw() {
   }
 
   // display score
-  caption.innerHTML = "Red Score: " + redScore + " - Blue Score: " + blueScore;
+  score.innerHTML = "Red Score: " + redScore + " - Blue Score: " + blueScore;
 
   // top paddle 1
   if (leftPressed && paddle1.x > 0 + padding) {

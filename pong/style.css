@@ -2,8 +2,19 @@ body {
   background: darkgray;
   color: gray;
   font-size: 2em;
+  text-align: center;
 }
-#myCanvas {
+#wrapper {
+  overflow: auto;
+  margin: 10px;
+  display: inline-block;
+}
+#canvas {
   background: lightgray;
   border: solid 1px gray;
+  float: left;
+}
+#caption {
+  padding: 25px;
+  float: left;
 }
