@@ -312,6 +312,7 @@ function pause() {
   if (paused) {
     sleep(1000);
     drawInterval = setInterval(draw, 10);
+    redBallStart();
     paused = false;
   }
   else {
