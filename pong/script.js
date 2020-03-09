@@ -15,6 +15,7 @@ var aPressed;
 var dPressed;
 var twoPlayer;
 var oneBall;
+var ai;
 
 // game variables
 var paused = false;
@@ -118,6 +119,14 @@ function keyDownHandler(e) {
     }
     else {
       oneBall = true;
+    }
+  }
+  if (e.key == '3' || e.key == 'Numpad3') {
+    if (ai) {
+      ai = false;
+    }
+    else {
+      ai = true;
     }
   }
 }
@@ -399,11 +408,21 @@ function draw() {
   }
 
   // right paddle 2
-  if (upPressed && paddle2.y > 0 + padding) {
-    paddle2.y -= paddleS;
+  if (ai) {
+    if ((paddle2.y + (paddleH / 2)) <= ball1.y) {
+      paddle2.y += 5;
+    }
+    if ((paddle2.y + (paddleH / 2)) >= ball1.y) {
+      paddle2.y -= 5;
+    }
   }
-  if (downPressed && paddle2.y + paddleH < canvas.height - padding) {
-    paddle2.y += paddleS;
+  else {
+    if (upPressed && paddle2.y > 0 + padding) {
+      paddle2.y -= paddleS;
+    }
+    if (downPressed && paddle2.y + paddleH < canvas.height - padding) {
+      paddle2.y += paddleS;
+    }
   }
 
   // bottom paddle3
@@ -415,11 +434,21 @@ function draw() {
   }
 
   // left paddle4
-  if (wPressed && paddle4.y > 0 + padding) {
-    paddle4.y -= paddleS;
+  if (ai) {
+    if ((paddle4.y + (paddleH / 2)) <= ball1.y) {
+      paddle4.y += 5;
+    }
+    if ((paddle4.y + (paddleH / 2)) >= ball1.y) {
+      paddle4.y -= 5;
+    }
   }
-  if (sPressed && paddle4.y + paddleH < canvas.height - padding) {
-    paddle4.y += paddleS;
+  else {
+    if (wPressed && paddle4.y > 0 + padding) {
+      paddle4.y -= paddleS;
+    }
+    if (sPressed && paddle4.y + paddleH < canvas.height - padding) {
+      paddle4.y += paddleS;
+    }
   }
 }
 
