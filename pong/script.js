@@ -15,7 +15,7 @@ var aPressed;
 var dPressed;
 var twoPlayer;
 var oneBall;
-var ai;
+var aiActive; // paddle 2
 
 // game variables
 var paused = false;
@@ -122,11 +122,11 @@ function keyDownHandler(e) {
     }
   }
   if (e.key == '3' || e.key == 'Numpad3') {
-    if (ai) {
-      ai = false;
+    if (aiActive) {
+      aiActive = false;
     }
     else {
-      ai = true;
+      aiActive = true;
     }
   }
 }
@@ -409,12 +409,12 @@ function draw() {
   }
 
   // right paddle 2
-  if (ai) {
-    if ((paddle2.y + (paddleH / 2)) <= ball1.y) {
-      paddle2.y += 5;
+  if (aiActive) {
+    if (paddle2.y + (paddleH / 2) >= ball1.y && paddle2.y > 0 + padding) { // ai up
+      paddle2.y -= paddleS;
     }
-    if ((paddle2.y + (paddleH / 2)) >= ball1.y) {
-      paddle2.y -= 5;
+    if (paddle2.y + (paddleH / 2) <= ball1.y && paddle2.y + paddleH < canvas.height - padding) { // ai down
+      paddle2.y += paddleS;
     }
   }
   else {
