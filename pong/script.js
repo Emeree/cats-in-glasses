@@ -434,21 +434,11 @@ function draw() {
   }
 
   // left paddle4
-  if (ai) {
-    if ((paddle4.y + (paddleH / 2)) <= ball1.y) {
-      paddle4.y += 5;
-    }
-    if ((paddle4.y + (paddleH / 2)) >= ball1.y) {
-      paddle4.y -= 5;
-    }
+  if (wPressed && paddle4.y > 0 + padding) {
+    paddle4.y -= paddleS;
   }
-  else {
-    if (wPressed && paddle4.y > 0 + padding) {
-      paddle4.y -= paddleS;
-    }
-    if (sPressed && paddle4.y + paddleH < canvas.height - padding) {
-      paddle4.y += paddleS;
-    }
+  if (sPressed && paddle4.y + paddleH < canvas.height - padding) {
+    paddle4.y += paddleS;
   }
 }
 
