@@ -4,6 +4,9 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var padding = 10;
 
+canvas.height = window.innerHeight;
+canvas.width = canvas.height;
+
 // key bools
 var upPressed;
 var downPressed;
@@ -19,8 +22,8 @@ var aiActive; // paddle 2
 
 // game variables
 var paused = false;
-var blueScore = 0;
-var redScore = 0;
+var topRightScore = 0;
+var bottomLeftScore = 0;
 
 // paddle variables when taller vertically
 var paddleW = 10; // width
@@ -56,6 +59,7 @@ var ball1DirX;
 var ball1DirY;
 var ball2DirX;
 var ball2DirY;
+var ballCol = "#ffffff";
 
 var ball1 = { // red
 
@@ -101,7 +105,7 @@ function keyDownHandler(e) {
   if (e.key == 'p' || e.key == 'KeyP') {
     pause();
   }
-  if (e.key == 'r' || e.key == "KeyR") {
+  if (e.key == 'r' || e.key == 'KeyR') {
     resetScore();
   }
   if (e.key == '1' || e.key == 'Digit1') {
@@ -160,8 +164,8 @@ function keyUpHandler(e) {
 
 // game functions
 function resetScore() {
-  redScore = 0;
-  blueScore = 0;
+  bottomLeftScore = 0;
+  topRightScore = 0;
 }
 
 function sleep(milliseconds) {
@@ -172,7 +176,7 @@ function sleep(milliseconds) {
   } while (currentDate - date < milliseconds);
 }
 
-function redBallStart() {
+function ball1Start() {
   ball1.x = canvas.width / 2;
   ball1.y = canvas.width / 2;
 
@@ -189,7 +193,7 @@ function redBallStart() {
   }
 }
 
-function blueBallStart() {
+function ball2Start() {
   ball2.x = canvas.width / 2;
   ball2.y = canvas.width / 2;
 
@@ -207,7 +211,7 @@ function blueBallStart() {
 }
 
 // ball1 red scoring and collision
-function redBallLogic() {
+function ball1Logic() {
   if (ball1.y + ball1DirY < ballR + padding + paddleW) { // top wall, paddle1
     if (twoPlayer) {
       if (ball1.x <= canvas.height && ball1.x >= 0) {
@@ -218,8 +222,8 @@ function redBallLogic() {
       ball1DirY = -ball1DirY;
     }
     else {
-      redScore += 1;
-      redBallStart();
+      bottomLeftScore += 1;
+      ball1Start();
     }
   }
 
@@ -228,8 +232,8 @@ function redBallLogic() {
       ball1DirX = -ball1DirX;
     }
     else {
-      redScore += 1;
-      redBallStart();
+      bottomLeftScore += 1;
+      ball1Start();
     }
   }
 
@@ -243,8 +247,8 @@ function redBallLogic() {
       ball1DirY = -ball1DirY;
     }
     else {
-      blueScore += 1;
-      redBallStart();
+      topRightScore += 1;
+      ball1Start();
     }
   }
 
@@ -253,14 +257,14 @@ function redBallLogic() {
       ball1DirX = -ball1DirX;
     }
     else {
-      blueScore += 1;
-      redBallStart();
+      topRightScore += 1;
+      ball1Start();
     }
   }
 }
 
 // ball2 blue scoring and collision
-function blueBallLogic() {
+function ball2Logic() {
   if (ball2.y + ball2DirY < ballR + padding + paddleW) { // top wall, paddle1
     if (twoPlayer && ball2.x >= 0 && ball2.x <= canvas.height) { // two player mode, balls bounce off top and bottom walls
       ball2DirY = -ball2DirY;
@@ -269,8 +273,8 @@ function blueBallLogic() {
       ball2DirY = -ball2DirY;
     }
     else {
-      redScore += 1;
-      blueBallStart();
+      bottomLeftScore += 1;
+      ball2Start();
     }
   }
 
@@ -279,8 +283,8 @@ function blueBallLogic() {
       ball2DirX = -ball2DirX;
     }
     else {
-      redScore += 1;
-      blueBallStart();
+      bottomLeftScore += 1;
+      ball2Start();
     }
   }
 
@@ -292,8 +296,8 @@ function blueBallLogic() {
       ball2DirY = -ball2DirY;
     }
     else {
-      blueScore += 1;
-      blueBallStart();
+      topRightScore += 1;
+      ball2Start();
     }
   }
 
@@ -302,8 +306,8 @@ function blueBallLogic() {
       ball2DirX = -ball2DirX;
     }
     else {
-      blueScore += 1;
-      blueBallStart();
+      topRightScore += 1;
+      ball2Start();
     }
   }
 }
@@ -312,7 +316,7 @@ function pause() {
   if (paused) {
     sleep(1000);
     drawInterval = setInterval(draw, 10);
-    redBallStart();
+    ball1Start();
     paused = false;
   }
   else {
@@ -326,19 +330,19 @@ function drawPaddle(paddleN) { // takes in paddle number and draws that paddle
   ctx.beginPath();
   if (paddleN == 1) {
     ctx.rect(paddle1.x, paddle1.y, paddleH, paddleW);
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = ballCol;
   }
   else if (paddleN == 2) {
     ctx.rect(paddle2.x, paddle2.y, paddleW, paddleH);
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = ballCol;
   }
   else if (paddleN == 3) {
     ctx.rect(paddle3.x, paddle3.y, paddleH, paddleW);
-    ctx.fillStyle = "red";
+    ctx.fillStyle = ballCol;
   }
   else if (paddleN == 4) {
     ctx.rect(paddle4.x, paddle4.y, paddleW, paddleH);
-    ctx.fillStyle = "red";
+    ctx.fillStyle = ballCol;
   }
   ctx.fill();
 }
@@ -347,11 +351,11 @@ function drawBall(ballN) { // takes in ball number and draws that ball
   ctx.beginPath();
   if (ballN == 1) {
     ctx.arc(ball1.x, ball1.y, ballR, 0, Math.PI * 2);
-    ctx.fillStyle = "red";
+    ctx.fillStyle = ballCol;
   }
   else if (ballN == 2) {
     ctx.arc(ball2.x, ball2.y, ballR, 0, Math.PI * 2);
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = ballCol;
   }
   ctx.fill();
 }
@@ -373,13 +377,13 @@ function draw() {
 
   if (oneBall) { // one ball mode
     drawBall(1);
-    redBallLogic();
+    ball1Logic();
   }
   else {
     drawBall(1);
     drawBall(2);
-    redBallLogic();
-    blueBallLogic();
+    ball1Logic();
+    ball2Logic();
   }
 
   // ball movement
@@ -398,7 +402,7 @@ function draw() {
   }
 
   // display score
-  score.innerHTML = "Red Score: " + redScore + " - Blue Score: " + blueScore;
+  score.innerHTML = "Left + Bottom: " + bottomLeftScore + " - Right + Top: " + topRightScore;
 
   // top paddle 1
   if (leftPressed && paddle1.x > 0 + padding) {
@@ -443,6 +447,6 @@ function draw() {
   }
 }
 
-redBallStart();
-blueBallStart();
+ball1Start();
+ball2Start();
 var drawInterval = setInterval(draw, 10);

@@ -1,20 +1,22 @@
 body {
-  background: darkgray;
-  color: gray;
-  font-size: 2em;
+  height: 100vh;
+  background-color: #0cbaba;
+  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 100%);
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2vw;
   text-align: center;
+  margin: 0;
 }
 #wrapper {
-  overflow: auto;
-  margin: 10px;
   display: inline-block;
 }
 #canvas {
-  background: lightgray;
-  border: solid 1px gray;
+  background: black;
+  opacity: 0.5;
   float: left;
 }
 #caption {
-  padding: 25px;
   float: left;
+  padding: 2vw;
 }
