@@ -120,17 +120,21 @@ function keyDownHandler(e) {
   if (e.key == '2' || e.key == 'Numpad2') {
     if (oneBall) {
       oneBall = false;
+      resetScore();
     }
     else {
       oneBall = true;
+      resetScore();
     }
   }
   if (e.key == '3' || e.key == 'Numpad3') {
     if (aiActive) {
       aiActive = false;
+      resetScore();
     }
     else {
       aiActive = true;
+      resetScore();
     }
   }
 }
@@ -166,6 +170,7 @@ function keyUpHandler(e) {
 function resetScore() {
   bottomLeftScore = 0;
   topRightScore = 0;
+  ball1Start();
 }
 
 function sleep(milliseconds) {
@@ -316,7 +321,6 @@ function pause() {
   if (paused) {
     sleep(1000);
     drawInterval = setInterval(draw, 10);
-    ball1Start();
     paused = false;
   }
   else {
